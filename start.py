@@ -4,9 +4,18 @@ from telegram.ext import Updater, CommandHandler
 
 total_seconds = 0
 
+import logging
+
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                            level=logging.INFO)
+
+logger = logging.getLogger(__name__)
+
 def get_token():
     with open('token.txt') as token_file:
-        token = token_file.read()
+        token = token_file.read().strip()
+        logger.info("token: {}".format(token))
     return token
 
 def start(bot, update):
@@ -15,6 +24,7 @@ def start(bot, update):
 def too_young_too_simple(bot, update):
     update.message.reply_text(
         '{}为长者续了一秒，目前一共{}秒'.format(update.message.from_user.first_name, total_seconds))
+    total_seconds += 1
 
 updater = Updater(get_token())
 
