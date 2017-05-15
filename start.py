@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from telegram.ext import Updater, CommandHandler
+from telegram import PhotoSize
 
 
 import logging
@@ -23,6 +24,8 @@ def start(bot, update):
 
 def too_young_too_simple(bot, update):
     global total_seconds
+    image = open("photo.jpg")
+    update.message.reply_photo(image)
     update.message.reply_text(
         '{}为长者续了一秒，目前一共{}秒'.format(update.message.from_user.first_name, total_seconds))
     total_seconds += 1
