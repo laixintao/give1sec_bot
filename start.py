@@ -25,8 +25,7 @@ def start(bot, update):
 def too_young_too_simple(bot, update):
     global total_seconds
     image = open("photo.jpg")
-    update.message.reply_photo(image)
-    update.message.reply_text(
+    update.message.reply_photo(image,
         '{}为长者续了一秒，目前一共{}秒'.format(update.message.from_user.first_name, total_seconds))
     total_seconds += 1
 
@@ -34,9 +33,7 @@ if __name__ == '__main__':
     global total_seconds
     total_seconds = 0
     updater = Updater(get_token())
-
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('too_young_too_simple', too_young_too_simple))
-
     updater.start_polling()
     updater.idle()
